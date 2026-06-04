@@ -56,7 +56,7 @@ def main(args):
         cmd = [
             "python",
             source_file_path,
-            "--index", str(i),
+            "--index", str(i + args.start_index),
             "--robot", args.robot,
             "--dx", str(dx),
             "--dy", str(dy),
@@ -76,6 +76,8 @@ if __name__ == "__main__":
     parser.add_argument("--robot", type=str, required=True, choices=["bdx", "olaf"])
 
     parser.add_argument("--num", type=int, required=True)
+
+    parser.add_argument("--start_index", type=int, required=True)
 
     parser.add_argument("--jobs", type=int, required=True)
 

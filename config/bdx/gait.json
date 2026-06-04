@@ -6,6 +6,7 @@
     "duration": 10.0,
     "hardware": true,
     "trunk_mode": true,
+    "ik_mode": "walk_tasks",
     "double_support_ratio": 0.2,
     "startend_double_support_ratio": 1.5,
     "planned_timesteps": 48,

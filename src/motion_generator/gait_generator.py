@@ -19,6 +19,21 @@ class RoundingFloat(float):
 def open_browser():
     webbrowser.open("http://127.0.0.1:7000/static/")
 
+
+def wrap_to_pi(angle: float) -> float:
+    return (angle + np.pi) % (2 * np.pi) - np.pi
+
+
+def compute_yaw_velocity(curr_quat, prev_quat, dt):
+    if prev_quat is None:
+        return 0.0
+
+    prev_yaw = R.from_quat(prev_quat).as_euler("zyx")[0]
+    curr_yaw = R.from_quat(curr_quat).as_euler("zyx")[0]
+
+    return wrap_to_pi(curr_yaw - prev_yaw) / dt
+
+
 def compute_angular_velocity(curr_quat, prev_quat, dt):
     if prev_quat is None:
         prev_quat = curr_quat
@@ -26,11 +41,10 @@ def compute_angular_velocity(curr_quat, prev_quat, dt):
     r0 = R.from_quat(prev_quat)
     r1 = R.from_quat(curr_quat)
 
-    r_relative = r0.inv() * r1
+    r_relative = r1 * r0.inv()
 
-    axis, angle = r_relative.as_rotvec(), np.linalg.norm(r_relative.as_rotvec())
-
-    angular_velocity = axis * (angle / dt)
+    angular_velocity = r_relative.as_rotvec() / dt
+    angular_velocity[2] = compute_yaw_velocity(curr_quat, prev_quat, dt)
 
     return list(angular_velocity)
 

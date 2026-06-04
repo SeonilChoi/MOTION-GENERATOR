@@ -1,5 +1,5 @@
 {
     "dx_bounds": [0.0, 0.1],
     "dy_bounds": [0.0, 0.1],
-    "dth_bounds": [0.0, 0.25]
+    "dth_bounds": [0.0, 0.1]
 }
