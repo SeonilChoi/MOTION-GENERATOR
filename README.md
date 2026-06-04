@@ -63,6 +63,27 @@ export LD_LIBRARY_PATH="/home/csi/anaconda3/envs/env_placo/lib/python3.10/site-p
 
 Run these from the **repository root** (`motion_generator/`) unless you adjust paths.
 
+### Gait configuration: IK mode
+
+Each robot selects its inverse-kinematics path in `config/<robot>/gait.json` with `ik_mode`:
+
+```json
+{
+  "ik_mode": "walk_tasks"
+}
+```
+
+- `walk_tasks` uses PlaCo's `WalkTasks` helper to drive the trunk and feet from the generated walking trajectory. This is the default when `ik_mode` is omitted and is used by the BDX configuration.
+- `generic_frame` creates regular frame tasks for `left_foot`, `right_foot`, and `trunk`, then updates those frame targets from the walk trajectory. Use it when the robot URDF frame layout needs explicit frame-level control or offsets; the OLAF configuration uses this mode with `right_foot_ik_yaw_offset`.
+
+Related optional fields:
+
+- `enable_joint_limits`: defaults to `false` for `walk_tasks`, `true` for `generic_frame`.
+- `ik_foot_orientation_axes`: defaults to `yz` for `walk_tasks`, `xyz` for `generic_frame`.
+- `ik_trunk_orientation_axes`: trunk orientation axes for `generic_frame` tasks, default `xyz`.
+- `ik_foot_task_weight` / `ik_trunk_task_weight`: soft task weights for `generic_frame`.
+- `right_foot_ik_yaw_offset`: yaw correction, in radians, applied to the right foot planning frame in `generic_frame`.
+
 ### `scripts/main.py` — batch gait generation
 
 Spawns multiple runs of `src/motion_generator/gait_generator.py` with random `(dx, dy, dθ)` from `config/<robot>/motion.json`, in parallel.
