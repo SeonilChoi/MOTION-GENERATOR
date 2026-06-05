@@ -40,18 +40,23 @@ def main(args):
 
     commands = []
     for i in range(num_references):
-        dx = round(
-            np.random.uniform(dx_bounds[0], dx_bounds[1]) * np.random.choice([-1, 1]),
-            2
-        )
-        dy = round(
-            np.random.uniform(dy_bounds[0], dy_bounds[1]) * np.random.choice([-1, 1]),
-            2
-        )
-        dth = round(
-            np.random.uniform(dth_bounds[0], dth_bounds[1]) * np.random.choice([-1, 1]),
-            2
-        )
+        if args.stand:
+            dx = 0.0
+            dy = 0.0
+            dth = 0.0
+        else:
+            dx = round(
+                np.random.uniform(dx_bounds[0], dx_bounds[1]) * np.random.choice([-1, 1]),
+                2
+            )
+            dy = round(
+                np.random.uniform(dy_bounds[0], dy_bounds[1]) * np.random.choice([-1, 1]),
+                2
+            )
+            dth = round(
+                np.random.uniform(dth_bounds[0], dth_bounds[1]) * np.random.choice([-1, 1]),
+                2
+            )
 
         cmd = [
             "python",

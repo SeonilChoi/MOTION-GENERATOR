@@ -3,7 +3,7 @@
     "dx": 0.0,
     "dy": 0.0,
     "dtheta": 0.0,
-    "duration": 10.0,
+    "duration": 15.0,
     "hardware": true,
     "trunk_mode": true,
     "ik_mode": "walk_tasks",
@@ -26,6 +26,57 @@
     "walk_max_dy": 0.1,
     "walk_max_dx_forward": 0.1,
     "walk_max_dx_backward": 0.1,
+    "head_motion": {
+        "enabled": true,
+        "progress_hold_duration": 3.5,
+        "glance_hold_duration": 1.0,
+        "transition_duration": 0.9,
+        "progress_yaw_limit_deg": 25.0,
+        "progress_min_forward": 0.03,
+        "turn_yaw_gain": 2.0,
+        "min_progress_segments_between_glances": 1,
+        "max_progress_segments_between_glances": 2,
+        "antenna_on_up": {
+            "enabled": true,
+            "head_pitch_reference_deg": 12.0,
+            "back_angle_deg": 22.0
+        },
+        "glance_sequence": [
+            "left",
+            "right",
+            "up_left",
+            "up_right"
+        ],
+        "glance_offsets_deg": {
+            "left": {
+                "head_pitch": 0.0,
+                "head_yaw": 18.0
+            },
+            "right": {
+                "head_pitch": 0.0,
+                "head_yaw": -18.0
+            },
+            "up_left": {
+                "head_pitch": 12.0,
+                "head_yaw": 14.0
+            },
+            "up_right": {
+                "head_pitch": 12.0,
+                "head_yaw": -14.0
+            }
+        }
+    },
+    "neck_step_motion": {
+        "enabled": true,
+        "fold_angle_deg": 3.0,
+        "cycle_duration": 0.36,
+        "min_interval": 0.0,
+        "counter_head_pitch": {
+            "enabled": true,
+            "ratio": 1.0,
+            "max_angle_deg": 7.0
+        }
+    },
     "joints": [
         "left_hip_yaw",
         "left_hip_roll",
